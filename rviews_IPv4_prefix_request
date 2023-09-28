@@ -1,0 +1,30 @@
+'''
+Created 20230928
+@author: BrianHolden
+'''
+
+from netmiko import ConnectHandler
+
+print(" ")
+print("----------------------------------------------------------------------------------------------------------------")
+print("----------------------------------------------------------------------------------------------------------------")
+print(" ")
+print("This script enables you to query the University of Oregon's publicly-available RouteViews server for the purpose")
+print("of identifying any IPv4 address' publicly-routable prefix and all AS PATHs associated with that prefix.")
+print(" ")
+print("This resource is best utilized for determining the Public Internet's unbiased view of an IPv4 prefix.")
+print(" ")
+print("----------------------------------------------------------------------------------------------------------------")
+print("----------------------------------------------------------------------------------------------------------------")
+print(" ")
+ipaddress = input("Enter an IPv4 address to determine the publicly-routable prefix and publicly-available AS PATHs: ")
+print(" ")
+
+device = ConnectHandler(
+    device_type='cisco_ios_telnet',
+    host='128.223.51.103',
+    username='rviews'
+)
+
+output = device.send_command('show ip bgp %s' %ipaddress)
+print(output)
